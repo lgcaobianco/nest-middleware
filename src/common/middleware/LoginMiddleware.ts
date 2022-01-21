@@ -21,6 +21,7 @@ export class LoginMiddleware implements NestMiddleware {
         `user logged in was:  ${this.loginService.getDecodedToken(token)}`,
       );
       next();
+      return;
     }
     throw new HttpException('Token invalid', HttpStatus.UNAUTHORIZED);
   }
