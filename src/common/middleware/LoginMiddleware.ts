@@ -16,13 +16,16 @@ export class LoginMiddleware implements NestMiddleware {
     if (!token) {
       throw new HttpException('Token required', HttpStatus.UNAUTHORIZED);
     }
-    if (this.loginService.isTokenValid(req.headers['authorization'])) {
-      console.log(
-        `user logged in was:  ${this.loginService.getDecodedToken(token)}`,
-      );
-      next();
-      return;
+    try {
+      if (this.loginService.isTokenValid(req.headers['authorization'])) {
+        console.log(
+          `user logged in was:  ${this.loginService.getDecodedToken(token)}`,
+        );
+        next();
+        return;
+      }
+    } catch (e) {
+      throw new HttpException('Token invalid', HttpStatus.UNAUTHORIZED);
     }
-    throw new HttpException('Token invalid', HttpStatus.UNAUTHORIZED);
   }
 }
