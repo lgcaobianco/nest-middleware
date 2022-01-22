@@ -1,6 +1,5 @@
-import { Get, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Watch } from 'src/model/Watch';
-import WatchController from './watch-controller';
 
 @Injectable()
 export default class WatchService {
